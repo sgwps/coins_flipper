@@ -6,6 +6,6 @@
 ## Команды для клонирования и запуска
 ```
 git clone https://github.com/sgwps/coins_flipper
-cd coin_flipper
+cd coins_flipper
 sh start.sh
 ```
