@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Coin Machine</title>
+</head>
+
+<body>
+    <p> {{ description }} <\p>
+        <div id="tries">
+
+            <button onclick="FlipACoin()">try</button>
+        </div>
+
+        <div id="several_tries">
+            <input id="experiments_number" type="number">
+            <button onclick="GetProbabilityByCounts()">try</button>
+
+        </div>
+    
+</body>
+<script>
+
+    function GetParams(){
+        return {
+            'coin_number' : "{{ coin_number }}",
+            'exits_to_continue' : "{{ exits_to_continue }}",
+            'exits_event_happened' : "{{exits_event_happened}}"
+        };
+    }
+
+    async function FlipACoin() {
+        event.preventDefault();
+        let url = new URL('http://127.0.0.1:8000/flip_a_coin');
+        url.search = new URLSearchParams(GetParams());
+
+        const response = await fetch(url).then(response => response.json());
+        var resultLine = document.createElement("p");
+        resultLine.innerHTML = response.result;
+        document.getElementById("tries").appendChild(resultLine)
+        console.log(response)
+
+
+    }
+
+    async function GetProbabilityByCounts(){
+        event.preventDefault();
+        let url = new URL('http://127.0.0.1:8000/get_probability_by_counts');
+        params = GetParams();
+        // console.log(document.getElementById("several_tries").children['experiments_number'].value)
+        params['number'] = document.getElementById("several_tries").children['experiments_number'].value;
+        url.search = new URLSearchParams(params);
+        const response = await fetch(url).then(response => response.json());
+        var resultLine = document.createElement("p");
+        //console.log(Object.keys(response))
+
+        resultLine.innerHTML = "Вероятность события: " + response.result + " при " + params['number'] + "подбрасываниях.";
+        document.getElementById("several_tries").appendChild(resultLine)
+
+    }
+
+
+</script>
+</html>
