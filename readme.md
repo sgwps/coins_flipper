@@ -7,7 +7,6 @@
 ```
 git clone https://github.com/sgwps/coins_flipper
 cd coins_flipper
-sh start.sh
 python3 -m venv .venv
 source /home/sgwps/Desktop/coin_maachine_django/.venv/bin/activate
 pip install django
