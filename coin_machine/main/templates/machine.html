@@ -5,7 +5,13 @@
 </head>
 
 <body>
-    <p> {{ description }} <\p>
+    <div>
+        <p>Число монет: {{coin_number}}</p>
+        <p>Число исходов, после которых продолжаются подбрасывания: {{exits_to_continue}}</p>
+        <p>Число исходов, после которых считается, что событие произошло: {{exits_event_happened}}</p>
+        <p>Вероятность: {{probability}} или {{probability_decimal}}</p>
+    </div>
+
         <div id="tries">
 
             <button onclick="FlipACoin()">try</button>
@@ -52,8 +58,10 @@
         const response = await fetch(url).then(response => response.json());
         var resultLine = document.createElement("p");
         //console.log(Object.keys(response))
-
-        resultLine.innerHTML = "Вероятность события: " + response.result + " при " + params['number'] + "подбрасываниях.";
+        if (response.result != "error")
+        resultLine.innerHTML = "Вероятность события: " + response.result + " при " + params['number'] + " подбрасываниях.";
+        else
+        resultLine.innerHTML = params['number'] + " меньше или равно 0"
         document.getElementById("several_tries").appendChild(resultLine)
 
     }

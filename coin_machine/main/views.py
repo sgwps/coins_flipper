@@ -29,7 +29,11 @@ def flip_a_coin(request):
 
 def get_probability(request):
     machine = get_machine(request)
-    result = machine.try_experiments(int(request.GET.get('number')))
+    number = int(request.GET.get('number'))
+    if (number <= 0):
+        return JsonResponse({'result':'error'})
+
+    result = machine.try_experiments(number)
     return JsonResponse({'result':result})
 
 
@@ -47,7 +51,7 @@ def machine_view(request):
                 'exits_to_continue': int(request.GET.get('exits_to_continue')),\
                 'exits_event_happened':int(request.GET.get('exits_event_happened')),\
                 'probability': str(machine.probability_by_formula()),\
-                'probability_decimal' : machine.probability_by_formula().decimal()}
+                'probability_decimal' : str(machine.probability_by_formula().decimal())}
         return render(request, "machine.html", context)
     except ValueError:
         raise BadRequest("Such coin machine is not valid")
@@ -55,4 +59,4 @@ def machine_view(request):
 
 def handler400(request, exception, template_name="bad_request.html"):
     context = {'msg' : exception}
-    return HttpResponseBadRequest(template_name, context)
+    return render(request, template_name, context)

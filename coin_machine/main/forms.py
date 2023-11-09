@@ -14,8 +14,8 @@ class MachineParams(forms.Form):
 
         return cleaned_data
 
-    coin_number = forms.IntegerField(label="Coin number: ", min_value=1, max_value=15)
-    exits_to_continue = forms.IntegerField(label="Exits to continue: ")
-    exits_event_happened = forms.IntegerField(label="Exits to continue: ")
+    coin_number = forms.IntegerField(label="Число монет", min_value=1, max_value=15)
+    exits_to_continue = forms.IntegerField(label="Число исходов, после которых продолжаем")
+    exits_event_happened = forms.IntegerField(label="Число удачных исходов")
 
 

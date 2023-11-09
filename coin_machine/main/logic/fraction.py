@@ -21,7 +21,7 @@ class Fraction:
 
 
     def decimal(self):
-        return str(self.numer / self.denom, 4)
+        return round(self.numer / self.denom, 4)
 
     def __str__(self):
         if self.denom != 1:

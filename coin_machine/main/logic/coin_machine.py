@@ -10,6 +10,8 @@ class CoinMachine:
         max_number = 2 ** coins_for_one_exp
         if number_of_exits_to_cont + number_of_exits_event_happened > max_number:
             raise ValueError("Bad numbers")
+        if number_of_exits_to_cont + number_of_exits_event_happened >= max_number:
+            raise ValueError("Probability is const")
         exits_list = random.sample(range(2 ** coins_for_one_exp), number_of_exits_to_cont + number_of_exits_event_happened)
         self.exits_to_continue = exits_list[:number_of_exits_to_cont]
         self.exits_event_happened = exits_list[number_of_exits_to_cont:]
